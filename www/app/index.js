@@ -11,7 +11,7 @@
 					controller   : "exerciseOneController",
 					controllerAs : "ctrl",
 				})
-				.when("/exercise2", {
+				.when("/customer/:custid", {
 					// will use a controller
 					templateUrl: 'www/app/partials/exercise2.htm',
 					controller: "exerciseTwoController",
@@ -30,5 +30,8 @@
 				{ name: "Josh" },
 				{ name: "Mack" }
 			];
+			.otherwise({
+				templateUrl : 
+			})
 		});
 } (window.angular));

@@ -1,8 +1,11 @@
 <link href="/www/app/partials/exercise.css" rel="stylesheet" />
 
 <div class="ui container">
+	<button ng-click ="ctrl.es.login()" >login</button>
+	<button ng-click ="ctrl.es.logout()" >logout</button>{{ctrl.es.loggedInUser}}
+
 	<div class="ui horizontal divider">
-		Exercise 2
+		Customer ID: {{ ctrl.routeParams.custid | json }}
 	</div>
 
 	<div class="spacedDiv">
@@ -41,13 +44,14 @@
 		color property (ngStyle docs) and the button text should be the object's name + if it is first in array.  Clicking
 		the button should increase the object it represents' click count property by one, performing a console.log in the
 		process letting users' know what button was pressed and what its click count currently is:<br/>
-		<button class="ui large button" ng-repeat = "obj in ctrl.objectArray track by $index" ng-click = "obj.clickCount=obj.clickCount+1" ng-style= "{'background-color':'{{obj.color.color}}'}")>
-			{{obj.name}} {{$index + 1}} {{obj.color.name}} {{obj.color.color}} {{obj.clickCount}}
+		<button class="ui large button" ng-repeat = "obj in ctrl.objectArray | filter: ctrl.filter as results" ng-click = "obj.clickCount=obj.clickCount+1"
+		ng-style= "{'background-color':'{{obj.color}}'}")>
+			{{obj.name}}  {{obj.color}}  {{obj.clickCount}}
 
 		</button>
 
 		<!-- cast results to make this work -->
-		<span style="color: red;" ng-show="results.length === 0">Nothing matches filter: {{ vm.filter }}</span>
+		<span style="color: red;" ng-show="results.length === 0">Nothing matches filter: {{ ctrl.filter }}</span>
 	</div>
 
 	<div class="spacedDiv">
@@ -56,12 +60,12 @@
 
 	<div class="spacedDiv">
 		Filter the object array:
-		<input type="text">
+		<input type="text" ng-model= "ctrl.filter.$">
 	</div>
 
 	<div class="spacedDiv">
 		Filter the object array by ONLY click count:
-		<input type="text">
+		<input type="text" ng-model= "ctrl.filter.clickCount">
 	</div>
 
 	<div class="spacedDiv">
@@ -70,7 +74,9 @@
 			syntax for ng-options we used
 			ng-options="SELECTEDVALUE as DISPLAYNAME for ITEM in COLLECTION"
 		-->
-		<select>
+		<select ng-model= "ctrl.filter.color"
+
+						ng-options = "color.color as color.name for color in ctrl.possibleColors">
 			<option value="">-- choose color to filter --</option>
 		</select>
 	</div>
